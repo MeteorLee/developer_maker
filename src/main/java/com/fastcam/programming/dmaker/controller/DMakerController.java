@@ -1,13 +1,14 @@
 package com.fastcam.programming.dmaker.controller;
 
-import com.fastcam.programming.dmaker.dto.*;
-import com.fastcam.programming.dmaker.exception.DMakerException;
+import com.fastcam.programming.dmaker.dto.CreateDeveloper;
+import com.fastcam.programming.dmaker.dto.DeveloperDetailDto;
+import com.fastcam.programming.dmaker.dto.DeveloperDto;
+import com.fastcam.programming.dmaker.dto.EditDeveloper;
 import com.fastcam.programming.dmaker.service.DMakerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -64,15 +65,5 @@ public class DMakerController {
         return dMakerService.deleteDeveloper(memberId);
     }
 
-//    @ResponseStatus(value = HttpStatus.CONFLICT)
-    @ExceptionHandler(DMakerException.class)
-    public DMakerErrorResponse handleException (DMakerException e, HttpServletRequest request) {
-        log.error("errorCode : {}, url : {}, message: {}",
-                e.getDMakerErrorCode(), request.getRequestURI(), e.getDetailMessage());
 
-        return DMakerErrorResponse.builder()
-                .errorCode(e.getDMakerErrorCode())
-                .errorMessage(e.getMessage())
-                .build();
-    }
 }
